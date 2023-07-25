@@ -10,9 +10,9 @@ function Home() {
   ];
 
   return (
-    <div className="d-flex flex-row mb-3">
+    <div className="d-flex align-content-start flex-wrap">
       {unitData.map((unit) => {
-        return <CardItem card={unit} />;
+        return <CardItem card={unit} key={unit.id} />;
       })}
     </div>
   );
@@ -20,7 +20,11 @@ function Home() {
 
 export default Home;
 
-function CardItem({card}: {card: {title: string; description: string}}) {
+function CardItem({
+  card,
+}: {
+  card: {title: string; description: string; id: number};
+}) {
   return (
     <div>
       <Card style={{width: "18rem", margin: 15}}>

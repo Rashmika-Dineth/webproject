@@ -6,7 +6,7 @@ function Welcome() {
         src="https://www.pushengage.com/wp-content/uploads/2022/02/Best-Website-Welcome-Message-Examples.png"
         alt="new"
         width={window.innerWidth - 100}
-        height={window.innerHeight - 100}
+        height={window.innerWidth - 100}
       />
     </div>
   );
