@@ -67,6 +67,11 @@ function Login() {
             disabled={email.length <= 0}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                OnSubmitLogin();
+              }
+            }}
           />
         </Form.Group>
         <Button variant="primary" onClick={() => OnSubmitLogin()}>

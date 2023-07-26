@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import {useContext} from "react";
 import AuthContext from "../Authentication/AuthContext";
 import Button from "react-bootstrap/Button";
-import {FaUserCircle} from "react-icons/fa";
+import {FaUserCircle, FaHome, FaAdn} from "react-icons/fa";
 import {getAuth, signOut} from "firebase/auth";
 
 function NavigationBar() {
@@ -29,10 +29,17 @@ function NavigationBar() {
     <div>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">Welcome</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
+          <Navbar.Brand href="/"> Welcome</Navbar.Brand>
+          <Nav>
+            <Nav.Link href="/home">
+              {" "}
+              <FaHome color="white" size={25} /> Home
+            </Nav.Link>
+
+            <Nav.Link href="/about">
+              {" "}
+              <FaAdn color="white" size={25} /> About
+            </Nav.Link>
           </Nav>
 
           <Navbar.Collapse className="justify-content-end">
