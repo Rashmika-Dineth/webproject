@@ -4,6 +4,7 @@ import {useState, useContext} from "react";
 import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import Modal from "react-bootstrap/Modal";
 import AuthContext from "../components/Authentication/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
   const {setAuthResult} = useContext<any>(AuthContext);
@@ -13,6 +14,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const OnSubmitLogin = () => {
     console.log("Submit login");
@@ -27,12 +29,18 @@ function Login() {
         setShow(true);
         setModalTitle(`Welcome ${userName}`);
         setDescription("You are now logged in");
+        setEmail("");
+        setPassword("");
       })
       .catch((error) => {
         setShow(true);
         setModalTitle("Error");
         setDescription(` ${error.message}`);
         //console.log(error);
+      })
+      .finally(() => {
+        setEmail("");
+        setPassword("");
       });
   };
   return (
@@ -47,6 +55,7 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Enter email"
+            value={email}
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -57,6 +66,7 @@ function Login() {
             placeholder="Password"
             disabled={email.length <= 0}
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </Form.Group>
         <Button variant="primary" onClick={() => OnSubmitLogin()}>
@@ -73,7 +83,13 @@ function Login() {
         </Modal.Header>
         <Modal.Body>{description}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShow(false);
+              navigate("/home");
+            }}
+          >
             Close
           </Button>
         </Modal.Footer>
