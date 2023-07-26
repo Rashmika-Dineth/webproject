@@ -7,12 +7,10 @@ import AuthContext from "../Authentication/AuthContext";
 import Button from "react-bootstrap/Button";
 import {FaUserCircle} from "react-icons/fa";
 import {getAuth, signOut} from "firebase/auth";
-import {useState} from "react";
 
 function NavigationBar() {
   const {authResult, setAuthResult} = useContext<any>(AuthContext);
   const auth = getAuth();
-  const [loginToggle, setLoginToggle] = useState(false);
 
   const Logout = () => {
     signOut(auth)
@@ -55,10 +53,7 @@ function NavigationBar() {
               </>
             ) : (
               <Button style={{marginLeft: 20}} variant="dark">
-                <a onClick={() => setLoginToggle(false)} href="/login">
-                  {" "}
-                  Log in{" "}
-                </a>
+                <a href="/login"> Log in </a>
               </Button>
             )}
             <FaUserCircle color="white" size={25} />
