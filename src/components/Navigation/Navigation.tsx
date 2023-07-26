@@ -11,7 +11,6 @@ export default function Navigation() {
     <Router>
       <Routes>
         <Route path="/" element={<Welcome />} />
-
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
