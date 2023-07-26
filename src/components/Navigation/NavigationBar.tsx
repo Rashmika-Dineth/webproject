@@ -19,6 +19,7 @@ function NavigationBar() {
           loading: false,
           user: null,
         });
+        localStorage.setItem("logggedStatus", "0");
       })
       .catch((error) => {
         console.log(error);

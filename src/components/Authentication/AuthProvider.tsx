@@ -17,6 +17,7 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
           loading: false,
           user: user,
         });
+        localStorage.setItem("logggedStatus", "1");
       }
 
       return () => unsubscribe();
