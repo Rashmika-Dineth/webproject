@@ -5,8 +5,8 @@ function Welcome() {
       <img
         src="https://www.pushengage.com/wp-content/uploads/2022/02/Best-Website-Welcome-Message-Examples.png"
         alt="new"
-        width={window.innerWidth - 100}
-        height={window.innerWidth - 100}
+        width={window.innerWidth - 400}
+        height={window.innerWidth - 400}
       />
     </div>
   );

@@ -3,6 +3,7 @@ import NavigationBar from "./components/NavigationBar";
 import {useEffect} from "react";
 import {getAuth} from "firebase/auth";
 import {app} from "./components/Firebase";
+import AuthProvider from "./components/Authentication/AuthProvider";
 
 export const auth = getAuth(app);
 
@@ -14,9 +15,11 @@ function App() {
   });
 
   return (
-    <div className="App" style={{maxWidth: window.innerWidth}}>
-      <NavigationBar />
-    </div>
+    <AuthProvider>
+      <div className="App" style={{maxWidth: window.innerWidth}}>
+        <NavigationBar />
+      </div>
+    </AuthProvider>
   );
 }
 
