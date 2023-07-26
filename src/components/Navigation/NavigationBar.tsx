@@ -6,8 +6,26 @@ import {useContext} from "react";
 import AuthContext from "../Authentication/AuthContext";
 import Button from "react-bootstrap/Button";
 
+import {getAuth, signOut} from "firebase/auth";
+
 function NavigationBar() {
-  const {authResult} = useContext<any>(AuthContext);
+  const {authResult, setAuthResult} = useContext<any>(AuthContext);
+  const auth = getAuth();
+
+  const Logout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+    setAuthResult({
+      loading: false,
+      user: null,
+    });
+  };
+
   return (
     <div>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -18,16 +36,21 @@ function NavigationBar() {
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
           </Nav>
-          {authResult?.user?.token && (
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                Logged in as: {authResult?.user?.displayName}
-              </Navbar.Text>
-              <Button style={{marginLeft: 20}} variant="dark">
-                Log out
-              </Button>
-            </Navbar.Collapse>
-          )}
+
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Logged in as: {authResult?.user?.displayName}
+            </Navbar.Text>
+            <Button
+              onClick={() => {
+                Logout();
+              }}
+              style={{marginLeft: 20}}
+              variant="dark"
+            >
+              Log out
+            </Button>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
 

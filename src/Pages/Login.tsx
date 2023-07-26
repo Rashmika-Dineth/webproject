@@ -6,29 +6,33 @@ import Modal from "react-bootstrap/Modal";
 import AuthContext from "../components/Authentication/AuthContext";
 
 function Login() {
-  const {authResult, setAuthResult} = useContext<any>(AuthContext);
+  const {setAuthResult} = useContext<any>(AuthContext);
   const [show, setShow] = useState<boolean>();
   const [description, setDescription] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const auth = getAuth();
 
-  console.log("Result", authResult);
   const OnSubmitLogin = () => {
-    const auth = getAuth();
+    console.log("Submit login");
+    //console.log("Result", authResult);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const userName = userCredential?.user?.displayName;
-        //console.log(userCredential.user);
-        setAuthResult(userCredential.user);
+        setAuthResult({
+          loading: false,
+          user: userCredential.user,
+        });
         setShow(true);
         setModalTitle(`Welcome ${userName}`);
         setDescription("You are now logged in");
       })
       .catch((error) => {
-        console.log(error);
+        setShow(true);
+        setModalTitle("Error");
+        setDescription(` ${error.message}`);
+        //console.log(error);
       });
   };
   return (

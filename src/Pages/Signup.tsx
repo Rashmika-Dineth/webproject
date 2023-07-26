@@ -27,7 +27,7 @@ function Signup() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        console.log("Signup", user);
         updateProfile(user, {displayName: name}).then(() => {
           setModalTitle("Signup Success!");
           setDescription("You have successfully signed up");
