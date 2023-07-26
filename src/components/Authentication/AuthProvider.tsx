@@ -7,12 +7,12 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     loading: true,
     user: null,
   });
+
   const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user != null) {
-        console.log(user);
         setAuthResult({
           loading: false,
           user: user,
@@ -21,6 +21,7 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
       return () => unsubscribe();
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -16,6 +16,7 @@ function Signup() {
   const [passwordcnf, setPasswordcnf] = useState("");
   const [checkbox, setCheckbox] = useState(false);
   const [description, setDescription] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
   const auth = getAuth();
 
@@ -27,29 +28,30 @@ function Signup() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        updateProfile(user, {displayName: "Rashmika"});
-
-        // ...
+        updateProfile(user, {displayName: name}).then(() => {
+          setModalTitle("Signup Success!");
+          setDescription("You have successfully signed up");
+        });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error);
-        // ..
+        setDescription(error.message);
+        setShow(true);
       });
-    console.log("Add user");
-    console.log(email);
   };
 
   const OnSubmit = () => {
     if (password !== passwordcnf) {
+      setModalTitle("Signup Failed!");
       setDescription(
         "Password conformation does not match with your existing password"
       );
       setShow(true);
     } else if (password.length < 6) {
+      setModalTitle("Signup Failed!");
       setDescription("Password must have atleast have 6 characters");
       setShow(true);
+    } else {
+      AddUser();
     }
   };
 
@@ -106,8 +108,9 @@ function Signup() {
         </Form.Group>
         <Button
           variant="primary"
+          type="submit"
           onClick={() => OnSubmit()}
-          disabled={checkbox}
+          disabled={!checkbox}
         >
           Submit
         </Button>
@@ -118,7 +121,7 @@ function Signup() {
       {/*/////////////////////////////////// MODAL ///////////////////////////////////////////////////////////*/}
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Signup Failed!</Modal.Title>
+          <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{description}</Modal.Body>
         <Modal.Footer>

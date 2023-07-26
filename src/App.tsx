@@ -1,8 +1,8 @@
 import "./App.css";
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./components/Navigation/NavigationBar";
 import {useEffect} from "react";
 import {getAuth} from "firebase/auth";
-import {app} from "./components/Firebase";
+import {app} from "./components/Services/Firebase";
 import AuthProvider from "./components/Authentication/AuthProvider";
 
 export const auth = getAuth(app);

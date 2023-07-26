@@ -1,11 +1,36 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {useState} from "react";
+import {useState, useContext} from "react";
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import Modal from "react-bootstrap/Modal";
+import AuthContext from "../components/Authentication/AuthContext";
 
 function Login() {
+  const {authResult, setAuthResult} = useContext<any>(AuthContext);
+  const [show, setShow] = useState<boolean>();
+  const [description, setDescription] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  console.log("Result", authResult);
+  const OnSubmitLogin = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const userName = userCredential?.user?.displayName;
+        //console.log(userCredential.user);
+        setAuthResult(userCredential.user);
+        setShow(true);
+        setModalTitle(`Welcome ${userName}`);
+        setDescription("You are now logged in");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="d-flex align-items-center justify-content-center">
       {/*/////////////////////////////////// FORM ///////////////////////////////////////////////////////////*/}
@@ -19,9 +44,7 @@ function Login() {
             type="email"
             placeholder="Enter email"
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Enter Your Password</Form.Label>
@@ -32,13 +55,25 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" onClick={() => OnSubmitLogin()}>
           Submit
         </Button>
         <br />
         <br />
         Login or <a href="/signup"> Signup </a> as a new user
       </Form>
+      {/*/////////////////////////////////// MODAL ///////////////////////////////////////////////////////////*/}
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{modalTitle}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{description}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
