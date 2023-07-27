@@ -6,13 +6,10 @@ type ModuleContextType = {
   setTitle: (title: string) => void;
 };
 
-const ModuleContext = createContext<ModuleContextType | null>(null);
-
-const [title, setTitle] = useState<any>({
-  title: "Module Name",
-});
+export const ModuleContext = createContext<ModuleContextType | null>(null);
 
 export const ModuleProvider = ({children}: {children: React.ReactNode}) => {
+  const [title, setTitle] = useState<any>("Please select the Module");
   return (
     <ModuleContext.Provider
       value={{

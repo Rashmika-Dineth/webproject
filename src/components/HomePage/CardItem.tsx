@@ -1,17 +1,20 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import openBook from "../../Assets/open-book.png";
+import {ModuleContext} from "./ModuleContext";
+import {useContext} from "react";
 
-export const CardItems: React.FC<{title: string}> = ({title}) => {
+export const CardItems = () => {
+  const {title} = useContext<any>(ModuleContext);
   const unitData = [
     {id: 1, title: "Unit 1", description: "This is the description of unit 1"},
     {id: 2, title: "Unit 2", description: "This is the description of unit 2"},
     {id: 3, title: "Unit 3", description: "This is the description of unit 3"},
   ];
-
+  console.log({title});
   return (
     <div>
-      <h3>Module Name : {title}</h3>
+      <h3>{title}</h3>
       <div className="d-flex align-content-start flex-wrap">
         {unitData.map((unit) => {
           return <CardItem card={unit} key={unit.id} />;
