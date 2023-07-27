@@ -6,9 +6,7 @@ import Loading from "../../Pages/Loading";
 
 const PrivateRoutes = () => {
   const {authResult} = useContext<any>(AuthContext);
-  const [loading, setLoading] = useState(
-    localStorage.getItem("logggedStatus") === "1"
-  );
+  const [loading] = useState(localStorage.getItem("logggedStatus") === "1");
 
   if ((loading ?? false) && authResult.loading) {
     return (

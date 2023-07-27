@@ -35,7 +35,7 @@ function Login() {
       .catch((error) => {
         setShow(true);
         setModalTitle("Error");
-        setDescription(` ${error.message}`);
+        setDescription(`Incorrect username or password`);
         //console.log(error);
       })
       .finally(() => {

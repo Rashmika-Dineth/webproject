@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import openBook from "../Assets/open-book.png";
+import HomeTabs from "../components/HomePage/HomeTabs";
 
 function Home() {
   const unitData = [
@@ -10,11 +11,14 @@ function Home() {
   ];
 
   return (
-    <div className="d-flex align-content-start flex-wrap">
-      {unitData.map((unit) => {
-        return <CardItem card={unit} key={unit.id} />;
-      })}
-    </div>
+    <>
+      <HomeTabs />
+      <div className="d-flex align-content-start flex-wrap">
+        {unitData.map((unit) => {
+          return <CardItem card={unit} key={unit.id} />;
+        })}
+      </div>
+    </>
   );
 }
 
