@@ -13,12 +13,12 @@ function Home() {
           justifyContent="flex-end"
           alignItems="flex-start"
         >
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <CardItems />
           </Grid>
-          <Grid item xs={2}>
+          {/* <Grid item xs={2}>
             <SideNavigation />
-          </Grid>
+          </Grid> */}
         </Grid>
       </ModuleProvider>
     </div>

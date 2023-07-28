@@ -2,21 +2,35 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import openBook from "../../Assets/open-book.png";
 import {ModuleContext} from "./ModuleContext";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
+import {collection, getDocs, orderBy, query} from "firebase/firestore";
+import {db} from "../Services/Firebase";
+import Loading from "../../Pages/Loading";
 
 export const CardItems = () => {
   const {title} = useContext<any>(ModuleContext);
-  const unitData = [
-    {id: 1, title: "Unit 1", description: "This is the description of unit 1"},
-    {id: 2, title: "Unit 2", description: "This is the description of unit 2"},
-    {id: 3, title: "Unit 3", description: "This is the description of unit 3"},
-  ];
-  console.log({title});
+
+  const [modules, setModules] = useState<any[] | undefined>();
+  const usersCollectionRef = collection(db, "modules");
+  const q = query(usersCollectionRef, orderBy("id"));
+
+  useEffect(() => {
+    const getModules = async () => {
+      const data = await getDocs(q);
+      setModules(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    };
+
+    getModules();
+    // eslint-disable-next-line
+  }, []);
+
+  if (modules === undefined) return <Loading />;
+
   return (
     <div>
       <h3>{title}</h3>
       <div className="d-flex align-content-start flex-wrap">
-        {unitData.map((unit) => {
+        {modules.map((unit) => {
           return <CardItem card={unit} key={unit.id} />;
         })}
       </div>

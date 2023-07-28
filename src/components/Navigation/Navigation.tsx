@@ -4,7 +4,7 @@ import Home from "../../Pages/Home";
 import Signup from "../../Pages/Signup";
 import Login from "../../Pages/Login";
 import About from "../../Pages/About";
-import PrivateRoutes from "./PrivateRoute";
+import PrivateRoutes, {AdminRoutes} from "./PrivateRoute";
 import Admin from "../../Pages/Admin";
 
 export default function Navigation() {
@@ -17,6 +17,8 @@ export default function Navigation() {
         <Route path="/about" element={<About />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/home" element={<Home />} />
+        </Route>
+        <Route element={<AdminRoutes />}>
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>

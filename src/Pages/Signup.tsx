@@ -59,7 +59,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -83,7 +83,7 @@ export default function SignUp() {
               await addDoc(collection(db, "users"), {
                 id: data.get("email"),
                 password: data.get("password"),
-                unit: data.get("userName"),
+                name: data.get("userName"),
                 role: "5",
               }).then(() => {});
             } catch (e) {
@@ -116,10 +116,6 @@ export default function SignUp() {
       setMsg("Please fill the compulsary data to sign up !");
       setOpen(true);
     }
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
@@ -195,7 +191,7 @@ export default function SignUp() {
                       onChange={handleChange}
                     />
                   }
-                  label="I agreed to shere login data with the website"
+                  label="I agreed to share login data with the website"
                 />
               </Grid>
             </Grid>

@@ -1,13 +1,12 @@
 import {collection, getDocs, query, where} from "firebase/firestore";
-import AuthContext from "../components/Authentication/AuthContext";
 import {useContext, useEffect, useState} from "react";
-import {db} from "../components/Services/Firebase";
+import AuthContext from "./AuthContext";
+import {db} from "../Services/Firebase";
 
-function About() {
+function AdminAuth() {
   const {authResult} = useContext<any>(AuthContext);
   const [admins, setAdmins] = useState<any>([]);
   const usersCollectionRef = collection(db, "users");
-
   const q = query(
     usersCollectionRef,
     where("role", "==", "1"),
@@ -22,17 +21,9 @@ function About() {
 
     getModules().then();
     // eslint-disable-next-line
-  }, [authResult]);
+  }, [authResult?.user?.email]);
 
-  console.log(admins);
-
-  return (
-    <div>
-      Welcome {authResult?.user?.displayName}
-      <br />
-      You are logged in as {admins.length === 1 ? "an Admin" : "a User"}
-    </div>
-  );
+  return admins.length === 1 ? true : false;
 }
 
-export default About;
+export default AdminAuth;
