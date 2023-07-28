@@ -1,164 +1,214 @@
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import {useTheme} from "@mui/material/styles";
+import {useState} from "react";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  getAuth,
 } from "firebase/auth";
-import {useState, useEffect} from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import Stack from "react-bootstrap/Stack";
+import {useNavigate} from "react-router-dom";
 
-function Signup() {
-  const [show, setShow] = useState<boolean>();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordcnf, setPasswordcnf] = useState("");
-  const [checkbox, setCheckbox] = useState(false);
-  const [description, setDescription] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
-
-  const auth = getAuth();
-
-  useEffect(() => {}, []);
-
-  const AddUser = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        updateProfile(user, {displayName: name}).then(() => {
-          setModalTitle("Signup Success!");
-          setDescription("You have successfully signed up");
-        });
-      })
-      .catch((error) => {
-        setDescription(error.message);
-        setShow(true);
-      })
-      .finally(() => {
-        ResetForm();
-        setModalTitle("Signup Success!");
-        setDescription("Please login to continue");
-        setShow(true);
-      });
-  };
-
-  const OnSubmit = () => {
-    if (password !== passwordcnf) {
-      setModalTitle("Signup Failed!");
-      setDescription(
-        "Password conformation does not match with your existing password"
-      );
-      setShow(true);
-    } else if (password.length < 6) {
-      setModalTitle("Signup Failed!");
-      setDescription("Password must have atleast have 6 characters");
-      setShow(true);
-    } else {
-      AddUser();
-    }
-  };
-
-  const ResetForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPasswordcnf("");
-    setCheckbox(false);
-  };
-
+function Copyright(props: any) {
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      {/*/////////////////////////////////// FORM ///////////////////////////////////////////////////////////*/}
-      <Form>
-        <br />
-        <br />
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Your Name</Form.Label>
-          <Form.Control
-            onChange={(e) => setName(e.target.value)}
-            type="name"
-            placeholder="Enter Your Name"
-            value={name}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Enter email"
-            disabled={name.length <= 0}
-            value={email}
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Enter Your Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            disabled={email.length <= 0}
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPasswordcnf">
-          <Form.Label>Conform Your Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password conformation"
-            disabled={email.length <= 0 && password.length <= 0}
-            onChange={(e) => setPasswordcnf(e.target.value)}
-            value={passwordcnf}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check
-            onChange={(e) => setCheckbox(e.target.checked)}
-            type="checkbox"
-            label="Agree to share login data and signup"
-            checked={checkbox}
-          />
-        </Form.Group>
-        <Stack
-          direction="horizontal"
-          gap={3}
-          className="align-items-center justify-content-center"
-        >
-          <Button
-            variant="primary"
-            onClick={() => OnSubmit()}
-            disabled={!checkbox}
-          >
-            Submit
-          </Button>
-          <Button variant="secondary" onClick={() => ResetForm()}>
-            RESET
-          </Button>
-        </Stack>
-        <br />
-        <br />
-        Signup or <a href="/login"> Login </a> for existing user
-      </Form>
-      {/*/////////////////////////////////// MODAL ///////////////////////////////////////////////////////////*/}
-      <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>{modalTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{description}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://dbms-unit10.web.app/">
+        Rashmika
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
   );
 }
 
-export default Signup;
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+export default function SignUp() {
+  const auth = getAuth();
+  const [open, setOpen] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [msgTitle, setMsgTitle] = useState("");
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const email = data.get("email")?.toString();
+    const password = data.get("password")?.toString();
+    const passwordcnf = data.get("passwordcnf")?.toString();
+    const userName = data.get("userName")?.toString();
+
+    if (userName && email && password) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          updateProfile(user, {displayName: userName}).then(() => {});
+          setMsgTitle("SIGNUP SUCCESS !");
+          setMsg("You have successfully signed in !");
+          setOpen(true);
+        })
+        .catch((error) => {
+          setMsgTitle("SIGNUP FAILED !");
+          setMsg("Please try again to signup !");
+          setOpen(true);
+        })
+        .finally(() => {
+          navigate("/home");
+        });
+    } else if (password !== passwordcnf) {
+      setMsgTitle("SIGNUP FAILED !");
+      setMsg("Password does not match with password conformation !");
+      setOpen(true);
+    } else {
+      setMsgTitle("SIGNUP FAILED !");
+      setMsg("Please fill the compulsary data to sign up !");
+      setOpen(true);
+    }
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="userName"
+                  required
+                  fullWidth
+                  id="userName"
+                  label="User Name"
+                  autoFocus
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="passwordcnf"
+                  label="Password conformation"
+                  type="password"
+                  id="passwordcnf"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I agreed to shere given data with the website"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{mt: 3, mb: 2}}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{mt: 5}} />
+      </Container>
+      {/* //////////////////////////////// MESSAGE BOX //////////////////////////// */}
+      <div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">{msgTitle}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{msg}</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpen(false)} autoFocus>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </ThemeProvider>
+  );
+}
