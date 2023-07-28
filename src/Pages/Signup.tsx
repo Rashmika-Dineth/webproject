@@ -26,6 +26,8 @@ import {
   getAuth,
 } from "firebase/auth";
 import {useNavigate} from "react-router-dom";
+import {addDoc, collection} from "firebase/firestore";
+import {db} from "../components/Services/Firebase";
 
 function Copyright(props: any) {
   return (
@@ -57,6 +59,12 @@ export default function SignUp() {
   const navigate = useNavigate();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -70,12 +78,26 @@ export default function SignUp() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          updateProfile(user, {displayName: userName}).then(() => {});
+          updateProfile(user, {displayName: userName}).then(async () => {
+            try {
+              await addDoc(collection(db, "users"), {
+                id: data.get("email"),
+                password: data.get("password"),
+                unit: data.get("userName"),
+                role: "5",
+              }).then(() => {});
+            } catch (e) {
+              setMsgTitle("ERROR !");
+              setMsg(
+                "Error trying to add the user to Database. Please try again !"
+              );
+            }
+          });
           setMsgTitle("SIGNUP SUCCESS !");
           setMsg("You have successfully signed in !");
           setOpen(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setMsgTitle("SIGNUP FAILED !");
           setMsg("Please try again to signup !");
           setOpen(true);
@@ -165,20 +187,36 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox
+                      value="allowExtraEmails"
+                      color="primary"
+                      onChange={handleChange}
+                    />
                   }
                   label="I agreed to shere given data with the website"
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{mt: 3, mb: 2}}
-            >
-              Sign Up
-            </Button>
+            {checked ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{mt: 3, mb: 2}}
+              >
+                Sign Up
+              </Button>
+            ) : (
+              <Button
+                disabled
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{mt: 3, mb: 2}}
+              >
+                Sign Up
+              </Button>
+            )}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="login" variant="body2">
