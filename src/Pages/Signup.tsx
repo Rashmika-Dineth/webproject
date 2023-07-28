@@ -193,7 +193,7 @@ export default function SignUp() {
                       onChange={handleChange}
                     />
                   }
-                  label="I agreed to shere given data with the website"
+                  label="I agreed to shere login data with the website"
                 />
               </Grid>
             </Grid>
