@@ -103,7 +103,9 @@ export default function SignUp() {
           setOpen(true);
         })
         .finally(() => {
-          navigate("/home");
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
         });
     } else if (password !== passwordcnf) {
       setMsgTitle("SIGNUP FAILED !");

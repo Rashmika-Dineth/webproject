@@ -78,7 +78,9 @@ export default function Login() {
           setOpen(true);
         })
         .finally(() => {
-          navigate("/home");
+          setTimeout(() => {
+            navigate("/home");
+          }, 2000);
         });
     } else {
       setMsgTitle("Missing Data !");
