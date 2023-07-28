@@ -5,6 +5,7 @@ import Signup from "../../Pages/Signup";
 import Login from "../../Pages/Login";
 import About from "../../Pages/About";
 import PrivateRoutes from "./PrivateRoute";
+import Admin from "../../Pages/Admin";
 
 export default function Navigation() {
   return (
@@ -16,6 +17,7 @@ export default function Navigation() {
         <Route path="/about" element={<About />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </Router>

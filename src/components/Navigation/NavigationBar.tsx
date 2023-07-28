@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import {useContext} from "react";
 import AuthContext from "../Authentication/AuthContext";
 import Button from "react-bootstrap/Button";
-import {FaUserCircle, FaHome, FaAdn} from "react-icons/fa";
+import {FaUserCircle, FaHome, FaAdn, FaUserLock} from "react-icons/fa";
 import {getAuth, signOut} from "firebase/auth";
 
 function NavigationBar() {
@@ -36,10 +36,13 @@ function NavigationBar() {
               {" "}
               <FaHome color="white" size={25} /> Home
             </Nav.Link>
-
             <Nav.Link href="/about">
               {" "}
               <FaAdn color="white" size={25} /> About
+            </Nav.Link>
+            <Nav.Link href="/admin">
+              {" "}
+              <FaUserLock color="white" size={25} /> Admin
             </Nav.Link>
           </Nav>
 
