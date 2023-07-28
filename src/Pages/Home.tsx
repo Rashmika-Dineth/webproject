@@ -11,7 +11,7 @@ function Home() {
           container
           direction="row"
           justifyContent="flex-end"
-          alignItems="center"
+          alignItems="flex-start"
         >
           <Grid item xs={10}>
             <CardItems />
