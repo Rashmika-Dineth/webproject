@@ -20,3 +20,18 @@ const PrivateRoutes = () => {
 };
 
 export default PrivateRoutes;
+
+export const AdminRoutes = () => {
+  const {authResult} = useContext<any>(AuthContext);
+  const [loading] = useState(localStorage.getItem("uid") === "1");
+
+  if ((loading ?? false) && authResult.loading) {
+    return (
+      <>
+        <Loading />;
+      </>
+    );
+  }
+
+  return authResult?.user ? <Outlet /> : <Navigate to="/login" />;
+};
