@@ -62,7 +62,7 @@ export default function AddModules() {
 
   const AddModuleDatabase = async (data: FormData) => {
     try {
-      const docRef = await addDoc(collection(db, "modules"), {
+      await addDoc(collection(db, "modules"), {
         id: data.get("id"),
         title: data.get("title"),
         unit: data.get("unit"),
