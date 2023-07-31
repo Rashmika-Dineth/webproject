@@ -191,9 +191,18 @@ export default function AddModules() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{mt: 3, mb: 0}}
             >
               ADD MODULE
+            </Button>
+            <Button
+              onClick={() => setTitle("Modules")}
+              fullWidth
+              variant="contained"
+              color="secondary"
+              sx={{mt: 3, mb: 2}}
+            >
+              VIEW MODULES
             </Button>
           </Box>
         </Box>

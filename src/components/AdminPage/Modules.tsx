@@ -6,7 +6,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {db} from "../Services/Firebase";
 import Loading from "../../Pages/Loading";
 import {styled} from "@mui/material/styles";
@@ -18,8 +18,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import {AdminContext} from "./AdminContext";
 
 function Modules() {
+  const {setTitle} = useContext<any>(AdminContext);
   const [selection, setSelection] = useState("");
   const [modules, setModules] = useState<any[] | undefined>();
   const usersCollectionRef = collection(db, "modules");
@@ -56,6 +58,8 @@ function Modules() {
     // eslint-disable-next-line
   }, [selection]);
 
+  var i = 1;
+
   if (modules === undefined) return <Loading />;
   else {
     return (
@@ -68,8 +72,9 @@ function Modules() {
           <Table sx={{minWidth: 700}} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Module # </StyledTableCell>
+                <StyledTableCell> # </StyledTableCell>
                 <StyledTableCell align="left">Module Name</StyledTableCell>
+                <StyledTableCell>Id </StyledTableCell>
                 <StyledTableCell align="left">Unit</StyledTableCell>
                 <StyledTableCell align="left">Description</StyledTableCell>
                 <StyledTableCell align="left">Level</StyledTableCell>
@@ -83,9 +88,12 @@ function Modules() {
               {modules.map((module) => (
                 <StyledTableRow key={module.id}>
                   <StyledTableCell component="th" scope="module">
-                    {module.order}
+                    {i++}
                   </StyledTableCell>
                   <StyledTableCell align="left">{module.title}</StyledTableCell>
+                  <StyledTableCell component="th" scope="module">
+                    {module.order}
+                  </StyledTableCell>
                   <StyledTableCell align="left">
                     Unit {module.unit}
                   </StyledTableCell>
@@ -122,19 +130,25 @@ function Modules() {
           </Table>
         </TableContainer>
         {/* /////////////////////////////////////////////  MODULE TABLE //////////////////////////////////////////////////////////// */}
-        <br />
+
         <Button
+          fullWidth
           variant="contained"
           color="success"
           onClick={() => setSelection(selection + "Refresh")}
+          sx={{mt: 3, mb: 0}}
         >
           Refresh
         </Button>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setTitle("Add Module")}
+          fullWidth
+          sx={{mt: 3, mb: 2}}
+        >
           Add New Module
         </Button>
-        <br /> <br /> <br />
       </div>
     );
   }
