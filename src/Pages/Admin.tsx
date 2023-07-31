@@ -1,7 +1,8 @@
 import Grid from "@mui/material/Grid";
-import AdminSideNavigation from "../components/AdminPage/AdminSideNavigation";
-import {AdminProvider} from "../components/AdminPage/AdminContext";
-import AdminTabs from "../components/AdminPage/AdminTabs";
+import AdminNavigation, {
+  AdminTabs,
+} from "../components/AdminPage/AdminNavigation";
+import {AdminProvider} from "../components/AdminPage/Modules/ModuleContext";
 
 function Admin() {
   return (
@@ -17,7 +18,7 @@ function Admin() {
             <AdminTabs />
           </Grid>
           <Grid item xs={2}>
-            <AdminSideNavigation />
+            <AdminNavigation />
           </Grid>
         </Grid>
       </AdminProvider>

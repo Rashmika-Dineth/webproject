@@ -7,8 +7,8 @@ import {
   doc,
 } from "firebase/firestore";
 import {useContext, useEffect, useState} from "react";
-import {db} from "../Services/Firebase";
-import Loading from "../../Pages/Loading";
+import {db} from "../../Services/Firebase";
+import Loading from "../../../Pages/Loading";
 import {styled} from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -18,10 +18,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import {AdminContext} from "./AdminContext";
+import {ModuleContext} from "./ModuleContext";
 
 function Modules() {
-  const {setTitle} = useContext<any>(AdminContext);
+  const {setTitle, setUpdate} = useContext<any>(ModuleContext);
   const [selection, setSelection] = useState("");
   const [modules, setModules] = useState<any[] | undefined>();
   const usersCollectionRef = collection(db, "modules");
@@ -80,8 +80,9 @@ function Modules() {
                 <StyledTableCell align="left">Level</StyledTableCell>
                 <StyledTableCell align="left">Batch</StyledTableCell>
                 <StyledTableCell align="left">Module Code</StyledTableCell>
-                <StyledTableCell align="left">Update Module</StyledTableCell>
-                <StyledTableCell align="left">Delete Module</StyledTableCell>
+                <StyledTableCell align="left">Module</StyledTableCell>
+                <StyledTableCell align="left">Module</StyledTableCell>
+                <StyledTableCell align="left">Module</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -106,7 +107,26 @@ function Modules() {
                     {module.modulecode}
                   </StyledTableCell>
                   <StyledTableCell align="left">
-                    <Button color="secondary">Update</Button>
+                    <Button
+                      color="success"
+                      onClick={() => {
+                        setTitle("View Module");
+                        setUpdate(module.id);
+                      }}
+                    >
+                      View
+                    </Button>
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    <Button
+                      color="secondary"
+                      onClick={() => {
+                        setTitle("Update Module");
+                        setUpdate(module.id);
+                      }}
+                    >
+                      Update
+                    </Button>
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     <Button

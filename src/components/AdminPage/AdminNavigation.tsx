@@ -6,21 +6,24 @@ import ListItemText from "@mui/material/ListItemText";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import {useContext} from "react";
 import Box from "@mui/material/Box";
-import {AdminContext} from "./AdminContext";
+import {ModuleContext} from "./Modules/ModuleContext";
+import AddModules from "./Modules/AddModules";
+import Modules from "./Modules/Modules";
+import UpdateModule from "./Modules/UpdateModule";
+import ViewModule from "./Modules/ViewModule";
 
 function SideNavigation() {
-  const {setTitle} = useContext<any>(AdminContext);
+  const {setTitle} = useContext<any>(ModuleContext);
 
   const pages = [
     {id: 1, page: "Modules"},
-    {id: 2, page: "Add Module"},
+    {id: 2, page: "Users"},
   ];
 
   return (
     <Box
       sx={{
         flexGrow: 1,
-
         alignItems: "flex-end",
         alignContent: "flex-end",
         flexDirection: "row",
@@ -33,7 +36,6 @@ function SideNavigation() {
               <ListItemIcon>
                 <AutoStoriesIcon />
               </ListItemIcon>
-
               <ListItemText primary={page.page} />
             </ListItemButton>
           </ListItem>
@@ -44,3 +46,16 @@ function SideNavigation() {
 }
 
 export default SideNavigation;
+
+export function AdminTabs() {
+  const {title} = useContext<any>(ModuleContext);
+
+  return (
+    <div className="d-flex align-content-start flex-wrap">
+      {title === "Add Module" && <AddModules />}
+      {title === "Modules" && <Modules />}
+      {title === "Update Module" && <UpdateModule />}
+      {title === "View Module" && <ViewModule />}
+    </div>
+  );
+}
