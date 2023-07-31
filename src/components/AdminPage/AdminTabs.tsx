@@ -9,7 +9,7 @@ function AdminTabs() {
   const {title} = useContext<any>(AdminContext);
   return (
     <div className="d-flex align-content-start flex-wrap">
-      {title === "Add Modules" && <AddModules />}
+      {title === "Add Module" && <AddModules />}
       {title === "User Page" && <UserPage />}
       {title === "Add Module Data" && <AddModuleData />}
       {title === "Modules" && <Modules />}

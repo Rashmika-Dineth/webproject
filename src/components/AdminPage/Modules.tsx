@@ -20,10 +20,10 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 function Modules() {
-  const [selection, setSelection] = useState();
+  const [selection, setSelection] = useState("");
   const [modules, setModules] = useState<any[] | undefined>();
   const usersCollectionRef = collection(db, "modules");
-  const q = query(usersCollectionRef, orderBy("id"));
+  const q = query(usersCollectionRef, orderBy("order"));
 
   const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -52,6 +52,7 @@ function Modules() {
     };
 
     getModules();
+
     // eslint-disable-next-line
   }, [selection]);
 
@@ -122,7 +123,18 @@ function Modules() {
         </TableContainer>
         {/* /////////////////////////////////////////////  MODULE TABLE //////////////////////////////////////////////////////////// */}
         <br />
-        <br />
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => setSelection(selection + "Refresh")}
+        >
+          Refresh
+        </Button>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <Button variant="contained" color="primary">
+          Add New Module
+        </Button>
+        <br /> <br /> <br />
       </div>
     );
   }

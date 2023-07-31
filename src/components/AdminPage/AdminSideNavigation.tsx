@@ -13,7 +13,7 @@ function SideNavigation() {
 
   const pages = [
     {id: 1, page: "Modules"},
-    {id: 2, page: "Add Modules"},
+    {id: 2, page: "Add Module"},
   ];
 
   return (
