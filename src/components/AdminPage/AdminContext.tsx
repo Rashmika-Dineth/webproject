@@ -9,7 +9,7 @@ type AdminContextType = {
 export const AdminContext = createContext<AdminContextType | null>(null);
 
 export const AdminProvider = ({children}: {children: React.ReactNode}) => {
-  const [title, setTitle] = useState<any>("Add Modules");
+  const [title, setTitle] = useState<any>("Modules");
   return (
     <AdminContext.Provider
       value={{

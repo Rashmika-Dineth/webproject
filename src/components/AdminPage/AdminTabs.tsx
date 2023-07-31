@@ -3,6 +3,7 @@ import {AdminContext} from "./AdminContext";
 import AddModules from "./AddModules";
 import UserPage from "./UserPage";
 import AddModuleData from "./AddModuleData";
+import Modules from "./Modules";
 
 function AdminTabs() {
   const {title} = useContext<any>(AdminContext);
@@ -11,6 +12,7 @@ function AdminTabs() {
       {title === "Add Modules" && <AddModules />}
       {title === "User Page" && <UserPage />}
       {title === "Add Module Data" && <AddModuleData />}
+      {title === "Modules" && <Modules />}
     </div>
   );
 }

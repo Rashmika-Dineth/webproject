@@ -43,11 +43,30 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function AddModules() {
+  const [id, setId] = useState("");
+  const [code, setCode] = useState("");
+  const [unit, setUnit] = useState("");
+  const [title, setTitle] = useState("");
+  const [level, setLevel] = useState("");
+  const [description, setDescription] = useState("");
+  const [batch, setBatch] = useState("");
+
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
   const [msgTitle, setMsgTitle] = useState("");
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const ResetModule = () => {
+    setId("");
+    setCode("");
+    setUnit("");
+    setTitle("");
+    setLevel("");
+    setDescription("");
+    setBatch("");
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -64,6 +83,7 @@ export default function AddModules() {
     try {
       await addDoc(collection(db, "modules"), {
         id: data.get("id"),
+        order: data.get("id"),
         title: data.get("title"),
         unit: data.get("unit"),
         level: data.get("level"),
@@ -77,6 +97,10 @@ export default function AddModules() {
     } catch (e) {
       setMsgTitle("ERROR !");
       setMsg("Error trying to add the module. Please try again !");
+    } finally {
+      setTimeout(() => {
+        ResetModule();
+      }, 2000);
     }
   };
 
@@ -109,6 +133,8 @@ export default function AddModules() {
                   label="ID"
                   name="id"
                   autoFocus
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -120,6 +146,8 @@ export default function AddModules() {
                   label="CODE"
                   name="code"
                   autoFocus
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -130,6 +158,8 @@ export default function AddModules() {
                   label="UNIT"
                   name="unit"
                   autoFocus
+                  value={unit}
+                  onChange={(e) => setUnit(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={8}>
@@ -141,6 +171,8 @@ export default function AddModules() {
                   label="MODULE NAME"
                   name="title"
                   autoFocus
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -151,6 +183,8 @@ export default function AddModules() {
                   label="LEVEL"
                   name="level"
                   autoFocus
+                  value={level}
+                  onChange={(e) => setLevel(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={7}>
@@ -161,6 +195,8 @@ export default function AddModules() {
                   label="DESCRIPTION"
                   name="description"
                   autoFocus
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={5}>
@@ -171,6 +207,8 @@ export default function AddModules() {
                   label="BATCH CODE"
                   name="batch"
                   autoFocus
+                  value={batch}
+                  onChange={(e) => setBatch(e.target.value)}
                 />
               </Grid>
             </Grid>
