@@ -82,6 +82,7 @@ export default function SignUp() {
             try {
               await addDoc(collection(db, "users"), {
                 id: data.get("email"),
+                email: data.get("email"),
                 password: data.get("password"),
                 name: data.get("userName"),
                 role: "5",

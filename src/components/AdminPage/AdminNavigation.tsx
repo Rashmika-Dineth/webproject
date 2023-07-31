@@ -11,6 +11,7 @@ import AddModules from "./Modules/AddModules";
 import Modules from "./Modules/Modules";
 import UpdateModule from "./Modules/UpdateModule";
 import ViewModule from "./Modules/ViewModule";
+import Users from "./Users/Users";
 
 function SideNavigation() {
   const {setTitle} = useContext<any>(ModuleContext);
@@ -56,6 +57,7 @@ export function AdminTabs() {
       {title === "Modules" && <Modules />}
       {title === "Update Module" && <UpdateModule />}
       {title === "View Module" && <ViewModule />}
+      {title === "Users" && <Users />}
     </div>
   );
 }
