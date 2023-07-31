@@ -2,7 +2,7 @@ import Navigation from "./Navigation";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import AuthContext from "../Authentication/AuthContext";
 import Button from "react-bootstrap/Button";
 import {FaUserCircle, FaHome, FaAdn, FaUserLock} from "react-icons/fa";
@@ -45,7 +45,7 @@ function NavigationBar() {
               {" "}
               <FaAdn color="white" size={25} /> About
             </Nav.Link>
-            {AdminAuth() && (
+            {AdminAuth() === 1 && (
               <Nav.Link href="/admin">
                 {" "}
                 <FaUserLock color="white" size={25} /> Admin

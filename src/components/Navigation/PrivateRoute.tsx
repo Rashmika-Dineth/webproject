@@ -23,18 +23,22 @@ const PrivateRoutes = () => {
 export default PrivateRoutes;
 
 export const AdminRoutes = () => {
+  const admin = AdminAuth();
+
   const {authResult} = useContext<any>(AuthContext);
-  const [loading] = useState(localStorage.getItem("uid") === "1");
+  const [loading] = useState(localStorage.getItem("logggedStatus") === "1");
 
-  //console.log("Admin authentication", AdminAuth());
-
-  if ((loading ?? false) && authResult.loading) {
+  if (((loading ?? false) && authResult.loading) || admin === true) {
     return (
       <>
         <Loading />;
       </>
     );
+  } else {
+    return authResult?.user?.accessToken && admin === 1 ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" />
+    );
   }
-
-  return AdminAuth() ? <Outlet /> : <Navigate to="/home" />;
 };
